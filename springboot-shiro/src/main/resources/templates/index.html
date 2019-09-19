@@ -9,17 +9,39 @@
 <body style="margin: 0 auto;">
     <h4 th:text="'您好！' + ${token}"></h4>
 
-    <button data-method="offset" data-type="auto" class="layui-btn  layui-btn-normal">居中弹出</button>
+    <button data-method="offset" id="juzhong" data-type="auto" class="layui-btn  layui-btn-normal">居中弹出</button>
+    <button data-method="offset" id="test2" data-type="auto" class="layui-btn  layui-btn-normal">居中弹出</button>
 
     <!--用户列表 -->
     <div th:replace="userList::userList"></div>
 
-
 </body>
 
-<script src="/static/js/jquery-3.4.1.js"></script>
+<script src="/static/js/jquery-1.9.1.min.js"></script>
 <script src="/static/layui/layui.js"></script>
 <script>
+    $(document).ready(function() {
+        layui.use(['layer'],function () {
+            $('#juzhong').click(function () {
+                console.log(1111)
+                layer.open({
+                    type: 1,
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['420px', '240px'], //宽高
+                    content: 'html内容'
+                });
+            })
 
+            $('.change').click(function () {
+                $(this)
+                layer.open({
+                    type: 1,
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['420px', '240px'], //宽高
+                    content: 'html内容'
+                });
+            })
+        })
+    })
 </script>
 </html>
