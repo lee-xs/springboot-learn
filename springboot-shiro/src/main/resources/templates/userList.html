@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css" />
+    <script src="/static/layui/layui.js"></script>
+</head>
+<body>
+
+    <!--用户列表 -->
+    <table th:fragment="userList" class="layui-table" style="width:800px;">
+        <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>username</th>
+            <th>password</th>
+            <th>email</th>
+            <th>salt</th>
+            <th>valid</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item,property : ${userList}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.username}"></td>
+            <td th:text="${item.password}"></td>
+            <td th:text="${item.email}"></td>
+            <td th:text="${item.salt}"></td>
+            <td th:if="${item.valid} eq 1"><span>激活</span></td>
+            <td th:unless="${item.valid} eq 1"><span>冻结</span></td>
+            <td th:width="150">
+                <button type="button" class="layui-btn layui-btn-sm">编辑</button>
+                <button type="button" class="layui-btn layui-btn-danger layui-btn-sm">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

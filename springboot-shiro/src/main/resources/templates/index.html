@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css" />
+
+</head>
+<body style="margin: 0 auto;">
+    <h4 th:text="'您好！' + ${token}"></h4>
+
+    <button data-method="offset" data-type="auto" class="layui-btn  layui-btn-normal">居中弹出</button>
+
+    <!--用户列表 -->
+    <div th:replace="userList::userList"></div>
+
+
+</body>
+
+<script src="/static/js/jquery-3.4.1.js"></script>
+<script src="/static/layui/layui.js"></script>
+<script>
+
+</script>
+</html>

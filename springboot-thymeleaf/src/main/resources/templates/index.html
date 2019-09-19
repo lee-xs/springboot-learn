@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+    <h1>这是主页</h1>
+    <hr/>
+    <b>1. th:object  th:text</b>
+    <p th:object="${user}">
+        <span style="color:red;" th:text="*{username}"></span>
+        <span style="color:red;" th:text="*{password}"></span>
+    </p>
+    <p>
+        <span style="color:red;" th:text="${user.username}"></span>
+        <span style="color:red;" th:text="${user.password}"></span>
+    </p>
+
+    <b>2. 字符串拼接</b>
+    <p>
+        <span style="color:red;" th:text="'hello' + ${user.username}"></span>
+        <span style="color:red;" th:text="|hello ${user.username}|"></span>
+    </p>
+
+    <b>3. th:if/th:unless条件判断</b>
+    <p>
+        <span style="color:red;" th:if="${user.username} eq 'admin'">条件成立时显示</span>
+        <span style="color:red;" th:unless="${user.username} eq 'admin'">条件不成立时显示</span>
+    </p>
+
+    <b>4. th:each循环</b>
+    <ul th:each="item,property : ${list}">
+        <li style="color:red;" th:text="${property.index}"></li>
+        <li style="color:red;" th:text="${item}"></li>
+    </ul>
+
+    <p>5. th:inline 控制台输出admin</p>
+
+</body>
+
+<script th:inline="javascript">
+    var username = [[${user.username}]]
+    console.log(username)
+</script>
+</html>
