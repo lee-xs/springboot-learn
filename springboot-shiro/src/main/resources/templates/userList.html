@@ -8,42 +8,35 @@
 <body>
 
     <!--用户列表 -->
-    <table th:fragment="userList" class="layui-table" style="width:800px;">
-        <colgroup>
-            <col width="150">
-            <col width="200">
-            <col>
-        </colgroup>
-        <thead>
-        <tr>
-            <th>id</th>
-            <th>username</th>
-            <th>password</th>
-            <th>email</th>
-            <th>salt</th>
-            <th>valid</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="item,property : ${userList}">
-            <td th:text="${item.id}"></td>
-            <td th:text="${item.username}"></td>
-            <td th:text="${item.password}"></td>
-            <td th:text="${item.email}"></td>
-            <td th:text="${item.salt}"></td>
-            <td th:if="${item.valid} eq 1"><span>激活</span></td>
-            <td th:unless="${item.valid} eq 1"><span>冻结</span></td>
-            <td th:width="150">
-                <button type="button" class="change layui-btn layui-btn-sm">编辑</button>
-                <button type="button" class="layui-btn layui-btn-danger layui-btn-sm">删除</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <table id="userList" lay-filter="test"></table>
 
 </body>
 
 <script src="/static/js/jquery-1.9.1.min.js"></script>
 <script src="/static/layui/layui.js"></script>
+<script th:inline="none">
+    $(document).ready(function() {
+        layui.use(['table','layer'],function () {
+            var layer = layui.layer
+                ,table = layui.table
+
+            table.render({
+                elem: '#userList'
+                ,height: 312
+                ,url: '/user/list' //数据接口
+                ,cols: [
+                    [ //表头
+                        {field: 'id', title: 'id', width:80, sort: true, fixed: 'left'}
+                        ,{field: 'username', title: 'username', width:80}
+                        ,{field: 'passwrord', title: 'passwrord', width:80, sort: true}
+                        ,{field: 'email', title: '城市', width:80}
+                        ,{field: 'salt', title: '签名', width: 177}
+                        ,{field: 'valid', title: '积分', width: 80, sort: true}
+                    ]
+                ]
+            });
+
+        })
+    })
+</script>
 </html>

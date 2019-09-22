@@ -36,6 +36,7 @@
 </main>
 <script src="/static/js/jquery-3.4.1.js"></script>
 <script src="/static/js/login.js"></script>
+<script src="/static/layui/layui.js"></script>
 <script>
     $(document).ready(function(){
         $(".styled-button").click(function(){
@@ -50,16 +51,17 @@
                 return;
             }
 
-            //$(this).attr({"type" : "submit"})
             var param = {"username":username, "password":password}
             $.post("/handleLogin", param, function(res){
                 if(res.code == 20000)
                 {
-                    window.location.href = '/index'
+                    window.location.href = 'index'
                 }
                 else
                 {
-                    alert(res.data.message)
+                    layui.use(['layer'],function () {
+                        layer.msg(res.data.message)
+                    })
                 }
             })
         })

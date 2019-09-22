@@ -105,4 +105,17 @@ public class UserService {
     public List<User> findUserList() {
         return userMapper.selectAll();
     }
+
+    public Integer edit(User user) {
+        Example example = new Example(User.class);
+        User oldUser = findUserById(user.getId());
+        oldUser.setUsername(user.getUsername());
+        oldUser.setEmail(user.getEmail());
+        oldUser.setValid(user.getValid());
+        return userMapper.updateByPrimaryKey(oldUser);
+    }
+
+    public Integer delete(Integer id) {
+        return userMapper.deleteByPrimaryKey(id);
+    }
 }
