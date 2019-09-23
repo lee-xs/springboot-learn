@@ -17,7 +17,7 @@ public class SpringBootShiroTest {
     public void password(){
         String hashAlgorithmName = "MD5";//加密方式
         int hashIterations = 10;//加密次数
-        String password = "fugui";//密码
+        String password = "admin";//密码
 
         String uuid = UUID.randomUUID().toString().replace("-", "");//UUID
         ByteSource salt = ByteSource.Util.bytes(uuid);//盐值

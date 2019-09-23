@@ -3,6 +3,8 @@ package cn.lixinblog.realm;
 import cn.lixinblog.dao.Permission;
 import cn.lixinblog.dao.Role;
 import cn.lixinblog.dao.User;
+import cn.lixinblog.service.PermissionService;
+import cn.lixinblog.service.RoleService;
 import cn.lixinblog.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
@@ -23,19 +25,23 @@ public class UserRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private PermissionService permissionService;
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         log.warn("UserRealm[正在进行权限验证]");
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo ();
-        String uid = (String)principalCollection.getPrimaryPrincipal();
-        List<Role> roleList = userService.findRoles(Integer.valueOf(uid));
-        Set<String> roleNameList = new HashSet<>();
-        for(Role role : roleList){
-            roleNameList.add(role.getRole());
-        }
+        String username = (String) principalCollection.getPrimaryPrincipal();
+        User user = userService.findUserByUsername(username);
+        Role role = roleService.findRoleByUid(user.getId());
+
         //此处把当前subject对应的所有角色信息交给shiro，调用hasRole的时候就根据这些role信息判断
-        authorizationInfo.setRoles(roleNameList);
-        List<Permission> permissionList = userService.findPermissions(Integer.valueOf(uid));
+        authorizationInfo.addRole(role.getRole());
+        List<Permission> permissionList = permissionService.findPermissions(user.getId());
         Set<String> permissionNameList = new HashSet<>();
         for (Permission permission : permissionList){
             permissionNameList.add(permission.getName());

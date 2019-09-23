@@ -7,81 +7,36 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @SuppressWarnings("all")
 public class UserService {
 
-    @Autowired
-    private RoleMapper roleMapper;
 
     @Autowired
     private UserMapper userMapper;
 
     @Autowired
-    private PermissionMapper permissionMapper;
+    private UserRoleService userRoleService;
 
     @Autowired
-    private UserRoleMapper userRoleMapper;
-
-    @Autowired
-    private RolePermissionMapper rolePermissionMapper;
+    private RoleService roleService;
 
     /**
-     * 根据用户id查询所有的角色信息
+     * 根据ID查询用户数据
      * @param id
      * @return
      */
-    public List<Role> findRoles(Integer id){
-        Example example = new Example(UserRole.class);
-        example.createCriteria().andEqualTo("uid",id);
-        //查询user id下的所有角色id
-        List<UserRole> userRoleList = userRoleMapper.selectByExample(example);
-        List<Integer> roleIdList = new ArrayList<>();
-        for(UserRole userRole : userRoleList){
-            roleIdList.add(userRole.getRoleId());
-        }
-        Example roleExample = new Example(Role.class);
-        roleExample.createCriteria().andIn("role_id", roleIdList);
-        //查询角色id对应的角色
-        List<Role> roleList = roleMapper.selectByExample(roleExample);
-        return roleList;
-    }
-
-    /**
-     *
-     * 根据y用户Id查询所有的权限信息
-     * @param id
-     * @return
-     */
-    public List<Permission> findPermissions(Integer id){
-        List<Role> roleList = findRoles(id);
-        List<Integer> roleIdList = new ArrayList<>();
-        for(Role role : roleList){
-            roleIdList.add(role.getId());
-        }
-        Example example = new Example(RolePermission.class);
-        example.createCriteria().andIn("role_id",roleIdList);
-        //查询所有角色 和 权限的关联关系
-        List<RolePermission> rolePermissionList = rolePermissionMapper.selectByExample(example);
-        List<Integer> permissionIdList = new ArrayList<>();
-        for(RolePermission rolePermission : rolePermissionList){
-            permissionIdList.add(rolePermission.getPermissionId());
-        }
-
-        Example permissionExample = new Example(Permission.class);
-        permissionExample.createCriteria().andIn("id",permissionIdList);
-        //查询所有的权限
-        List<Permission> permissionList = permissionMapper.selectByExample(permissionExample);
-        return permissionList;
-    }
-
     public User findUserById(Integer id){
         return userMapper.selectByPrimaryKey(id);
     }
 
+    /**
+     * 根据用户名查询用户数据
+     * @param username
+     * @return
+     */
     public User findUserByUsername(String username){
         User user = null;
         Example example = new Example(User.class);
@@ -95,10 +50,8 @@ public class UserService {
     @Transactional
     public int add(User user){
         int success1 = userMapper.insert(user);
-        UserRole userRole = new UserRole();
-        userRole.setUid(user.getId());
-        userRole.setRoleId(3);
-        int success2 = userRoleMapper.insert(userRole);
+        Role role = roleService.findRoleById(user.getRoleId());
+        int success2 = userRoleService.add(user.getId(), role.getId());
         return success1 + success2;
     }
 
@@ -106,16 +59,26 @@ public class UserService {
         return userMapper.selectAll();
     }
 
+    @Transactional
     public Integer edit(User user) {
         Example example = new Example(User.class);
         User oldUser = findUserById(user.getId());
-        oldUser.setUsername(user.getUsername());
-        oldUser.setEmail(user.getEmail());
-        oldUser.setValid(user.getValid());
+        oldUser.setUsername(user.getUsername())
+                .setEmail(user.getEmail())
+                .setValid(user.getValid());
+
+        Role role = roleService.findRoleByUid(oldUser.getId());
+        //判断是否修改了角色
+        if(user.getRoleId() != role.getId()){
+            userRoleService.edit(oldUser.getId(), user.getRoleId());
+        }
+
         return userMapper.updateByPrimaryKey(oldUser);
     }
 
+    @Transactional
     public Integer delete(Integer id) {
+        userRoleService.delete(id);
         return userMapper.deleteByPrimaryKey(id);
     }
 }
