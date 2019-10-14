@@ -1,0 +1,17 @@
+server:
+  port: 2922
+
+
+qiniu:
+  accessKey: 0qh-mgLFKmIl_fxb05bvDpMvgBNAGAocJ76hYKH5
+  secretKey: TEqAXQagJYqS_S9xXKj9KpLQjFXshIlha86kWluS
+  bucket: rans
+  path: http://cdn.lixinblog.cn
+
+spring:
+  thymeleaf:
+    suffix: .html
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    cache: false
+    mode: LEGACYHTML5

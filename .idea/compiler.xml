@@ -6,15 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="springboot-qiniu" />
         <module name="springboot-websocket" />
         <module name="springboot-rabbitmq" />
-        <module name="springboot-shiro" />
-        <module name="springboot-thymeleaf" />
         <module name="springboot-jwt" />
+        <module name="springboot-thymeleaf" />
+        <module name="springboot-shiro" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="springboot-jwt" target="1.8" />
+      <module name="springboot-qiniu" target="1.8" />
+      <module name="springboot-qiqiu" target="1.8" />
       <module name="springboot-rabbitmq" target="1.8" />
       <module name="springboot-shiro" target="1.8" />
       <module name="springboot-thymeleaf" target="1.8" />
@@ -24,6 +27,8 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="springboot-jwt" options="-parameters" />
+      <module name="springboot-qiniu" options="-parameters" />
+      <module name="springboot-qiqiu" options="-parameters" />
       <module name="springboot-rabbitmq" options="-parameters" />
       <module name="springboot-shiro" options="-parameters" />
       <module name="springboot-thymeleaf" options="-parameters" />
