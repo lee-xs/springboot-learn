@@ -1,7 +1,6 @@
 server:
   port: 2922
 
-
 qiniu:
   accessKey: #七牛云个人中心密匙 AccessKey
   secretKey: #七牛云个人中心密匙 SecretKey

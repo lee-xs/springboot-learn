@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/springboot-qiniu" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot-qiqiu" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot-rabbitmq" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-redis" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot-shiro" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot-thymeleaf" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot-websocket" charset="UTF-8" />
