@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css" />
+
+</head>
+<body style="margin: 0 auto;">
+    <h4 th:text="'您好！' + ${token}"></h4>
+
+    <!--用户列表 -->
+    <table id="userList" lay-filter="list"></table>
+
+    <!-- 弹出页面层-编辑用户信息-->
+    <form class="layui-form" action="" id="editUser" lay-filter="editUserInfo" style="padding:30px 30px 0 0;display: none">
+        <div class="layui-form-item">
+            <label class="layui-form-label">username</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" lay-verify="title" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">email</label>
+            <div class="layui-input-block">
+                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">role</label>
+            <div class="layui-input-block" lay-filter="roleSelect">
+                <select id="role" name="roleId" lay-verify=""></select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">valid</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="valid" lay-skin="switch" lay-text="激活|冻结">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn" lay-submit="" lay-filter="submitEditUser">立即提交</button>
+            </div>
+        </div>
+    </form>
+</body>
+
+<script type="text/html" id="barOperation">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script src="/static/js/jquery-1.9.1.min.js"></script>
+<script src="/static/layui/layui.js"></script>
+<script>
+    $(document).ready(function() {
+        layui.use(['table','layer', 'form'],function () {
+            var layer = layui.layer
+                ,table = layui.table
+                ,form = layui.form
+
+            /**
+             * ajax获取后台表格接口数据 填充
+             */
+            table.render({
+                elem: '#userList'
+                ,url: '/user/list' //数据接口
+                ,cols: [
+                    [ //表头
+                        {field: 'id', title: 'id', align: 'center'}
+                        ,{field: 'username', title: 'username', align: 'center'}
+                        ,{field: 'password', title: 'password', align: 'center'}
+                        ,{field: 'email', title: 'email', align: 'center'}
+                        ,{field: 'salt', title: 'salt', align: 'center'}
+                        ,{field: 'roleId', title: 'role', align: 'center', templet: function (data) {
+                            return setUserRole(data.roleId)
+                        }}
+                        ,{field: 'valid', title: 'valid', align: 'center', templet: function(data){
+                            return data.valid == 1 ? '激活' : '冻结'
+                        }}
+                        ,{field: 'right', title: '操作', align: 'center', toolbar: '#barOperation'}
+                    ]
+                ]
+            });
+
+            /**
+             * 获取所有角色信息 填入select下拉框
+             */
+            var roleList = null;
+            $.ajax({
+                url: '/role/all',
+                type: 'GET',
+                success:function(res){
+                    roleList = res.data;
+                    $('#role').empty(); //先清空select下拉框的值
+                     roleList.forEach((item) => {
+                        $('#role').append(new Option(item.role, item.id));
+                    })
+                    form.render('select')
+                }
+            })
+
+            /**
+             * 监听操作事件  edit del
+             */
+            table.on('tool(list)', function(obj){
+                var user = obj.data
+                var event = obj.event
+                if(event === 'edit'){
+                    //编辑用户信息
+                    var closeIndex = layer.open({
+                        //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                        type: 1
+                        ,title: "修改用户信息"
+                        ,area: ['460px', '350px']
+                        ,shadeClose: true //点击阴影出关闭弹出层
+                        ,content: $("#editUser")//引用的弹出层的页面层的方式加载修改界面表单
+                        ,success: function (layero, index) {
+                            console.log(user)
+                            form.val('editUserInfo',{
+                                "username": user.username
+                                ,"email": user.email
+                                ,"valid": user.valid == 1? 'on' : ''
+                                ,"roleId": user.roleId
+                            })
+                        }
+                    });
+                    //动态向表传递赋值可以参看文章进行修改界面的更新前数据的显示，当然也是异步请求的要数据的修改数据的获取
+                    setEditUserFormValue(obj, user, closeIndex);
+                }else if(event === 'del'){
+                    //删除用户信息
+                    layer.confirm('确定删除吗？', function(index){
+                        $.ajax({
+                            url: '/user/delete/' + user.id,
+                            type: 'DELETE',
+                            success:function(res){
+                                if(res.code == 20000){
+                                    obj.del();
+                                }
+                                layer.close(index)
+                                layer.msg(res.data)
+                            }
+                        })
+                    })
+                }
+            });
+
+            /**
+             * 设置弹出层中用户的默认数据
+             */
+            function setEditUserFormValue(obj, user, closeIndex) {
+                //监听弹出框表单提交，massage是修改界面的表单数据'submit(submitEditUser),是修改按钮的绑定
+                form.on('submit(submitEditUser)', function(alter){
+                    user.username = alter.field.username;
+                    user.email = alter.field.email;
+                    user.valid = alter.field.valid == 'on'? 1 : 0;
+                    user.roleId = alter.field.roleId;
+                    console.log(user.roleId)
+                    console.log(user)
+                    //修改用户信息
+                    $.ajax({
+                        url: '/user/edit',
+                        type: 'POST',
+                        contentType: "application/json; charset=utf-8",
+                        dataType:"json",
+                        data: JSON.stringify(user),
+                        success:function(res){
+                             if(res.code == 20000){
+                                //修改页面中表格的数据
+                                obj.update({
+                                    username: user.username
+                                    ,email: user.email
+                                    ,valid: user.valid
+                                    ,roleId: user.roleId
+                                })
+                            }
+                            layer.msg(res.data)
+                        }
+                    })
+                    layer.close(closeIndex);//关闭弹出层
+                })
+            }
+
+            /**
+             * 设置页面显示的角色信息
+             * @returns {string}
+             */
+            function setUserRole(roleId) {
+                let role = "";
+                roleList.forEach((item) => {
+                    if(item.id == roleId){
+                        role = item.role;
+                        return;
+                    }
+                })
+                return role;
+            }
+        })
+    })
+</script>
+</html>

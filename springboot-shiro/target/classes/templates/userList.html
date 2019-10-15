@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css" />
+</head>
+<body>
+
+    <!--用户列表 -->
+    <table id="userList" lay-filter="test"></table>
+
+</body>
+
+<script src="/static/js/jquery-1.9.1.min.js"></script>
+<script src="/static/layui/layui.js"></script>
+<script th:inline="none">
+    $(document).ready(function() {
+        layui.use(['table','layer'],function () {
+            var layer = layui.layer
+                ,table = layui.table
+
+            table.render({
+                elem: '#userList'
+                ,height: 312
+                ,url: '/user/list' //数据接口
+                ,cols: [
+                    [ //表头
+                        {field: 'id', title: 'id', width:80, sort: true, fixed: 'left'}
+                        ,{field: 'username', title: 'username', width:80}
+                        ,{field: 'passwrord', title: 'passwrord', width:80, sort: true}
+                        ,{field: 'email', title: '城市', width:80}
+                        ,{field: 'salt', title: '签名', width: 177}
+                        ,{field: 'valid', title: '积分', width: 80, sort: true}
+                    ]
+                ]
+            });
+
+        })
+    })
+</script>
+</html>

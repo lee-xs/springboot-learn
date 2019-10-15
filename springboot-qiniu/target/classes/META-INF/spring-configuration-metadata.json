@@ -2,8 +2,8 @@
   "groups": [
     {
       "name": "qiniu",
-      "type": "cn.lixinblog.utils.QiniuUtils",
-      "sourceType": "cn.lixinblog.utils.QiniuUtils"
+      "type": "cn.lixinblog.config.QiniuProperties",
+      "sourceType": "cn.lixinblog.config.QiniuProperties"
     }
   ],
   "properties": [
@@ -11,25 +11,25 @@
       "name": "qiniu.access-key",
       "type": "java.lang.String",
       "description": "AccessKey",
-      "sourceType": "cn.lixinblog.utils.QiniuUtils"
+      "sourceType": "cn.lixinblog.config.QiniuProperties"
     },
     {
       "name": "qiniu.bucket",
       "type": "java.lang.String",
       "description": "存储空间名称",
-      "sourceType": "cn.lixinblog.utils.QiniuUtils"
+      "sourceType": "cn.lixinblog.config.QiniuProperties"
     },
     {
       "name": "qiniu.path",
       "type": "java.lang.String",
       "description": "访问域名",
-      "sourceType": "cn.lixinblog.utils.QiniuUtils"
+      "sourceType": "cn.lixinblog.config.QiniuProperties"
     },
     {
       "name": "qiniu.secret-key",
       "type": "java.lang.String",
       "description": "SecretKey",
-      "sourceType": "cn.lixinblog.utils.QiniuUtils"
+      "sourceType": "cn.lixinblog.config.QiniuProperties"
     }
   ],
   "hints": []
