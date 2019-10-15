@@ -3,10 +3,10 @@ server:
 
 
 qiniu:
-  accessKey: 0qh-mgLFKmIl_fxb05bvDpMvgBNAGAocJ76hYKH5
-  secretKey: TEqAXQagJYqS_S9xXKj9KpLQjFXshIlha86kWluS
-  bucket: rans
-  path: http://cdn.lixinblog.cn
+  accessKey: #七牛云个人中心密匙 AccessKey
+  secretKey: #七牛云个人中心密匙 SecretKey
+  bucket: #存储空间名
+  path: #访问的域名
 
 spring:
   thymeleaf:

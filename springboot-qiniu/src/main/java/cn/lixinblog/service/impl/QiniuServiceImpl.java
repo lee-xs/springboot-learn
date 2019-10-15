@@ -69,7 +69,10 @@ public class QiniuServiceImpl implements QiniuService {
         return response;
     }
 
-
+    /**
+     * 获取上传凭证
+     * @return
+     */
     private String uploadToken(){
         return auth.uploadToken(qiniuProperties.getBucket(), null, 3600, null);
     }
