@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/learn-demo/learn-demo.iml" filepath="$PROJECT_DIR$/learn-demo/learn-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-jwt/springboot-jwt.iml" filepath="$PROJECT_DIR$/springboot-jwt/springboot-jwt.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-qiniu/springboot-qiniu.iml" filepath="$PROJECT_DIR$/springboot-qiniu/springboot-qiniu.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-rabbitmq/springboot-rabbitmq.iml" filepath="$PROJECT_DIR$/springboot-rabbitmq/springboot-rabbitmq.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-redis/springboot-redis.iml" filepath="$PROJECT_DIR$/springboot-redis/springboot-redis.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-shiro/springboot-shiro.iml" filepath="$PROJECT_DIR$/springboot-shiro/springboot-shiro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-spring security/springboot-spring security.iml" filepath="$PROJECT_DIR$/springboot-spring security/springboot-spring security.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-thymeleaf/springboot-thymeleaf.iml" filepath="$PROJECT_DIR$/springboot-thymeleaf/springboot-thymeleaf.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-websocket/springboot-websocket.iml" filepath="$PROJECT_DIR$/springboot-websocket/springboot-websocket.iml" />
     </modules>

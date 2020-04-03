@@ -97,6 +97,7 @@ CREATE TABLE `user` (
   `id` int(32) NOT NULL AUTO_INCREMENT,
   `username` varchar(64) NOT NULL,
   `password` varchar(256) NOT NULL,
+
   `email` varchar(128) DEFAULT NULL,
   `salt` varchar(256) NOT NULL,
   `valid` int(2) NOT NULL DEFAULT '1',

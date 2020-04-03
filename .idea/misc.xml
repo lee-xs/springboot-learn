@@ -13,6 +13,8 @@
         <option value="$PROJECT_DIR$/springboot-websocket/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-qiniu/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-redis/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-spring security/pom.xml" />
+        <option value="$PROJECT_DIR$/learn-demo/pom.xml" />
       </list>
     </option>
   </component>

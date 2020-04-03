@@ -117,7 +117,6 @@
                         ,shadeClose: true //点击阴影出关闭弹出层
                         ,content: $("#editUser")//引用的弹出层的页面层的方式加载修改界面表单
                         ,success: function (layero, index) {
-                            console.log(user)
                             form.val('editUserInfo',{
                                 "username": user.username
                                 ,"email": user.email
@@ -156,8 +155,6 @@
                     user.email = alter.field.email;
                     user.valid = alter.field.valid == 'on'? 1 : 0;
                     user.roleId = alter.field.roleId;
-                    console.log(user.roleId)
-                    console.log(user)
                     //修改用户信息
                     $.ajax({
                         url: '/user/edit',

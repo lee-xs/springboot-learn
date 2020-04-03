@@ -1,6 +1,6 @@
 package cn.lixinblog;
 
-import cn.lixinblog.utils.RedisUtils;
+import cn.aleestar.utils.RedisUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
