@@ -21,3 +21,5 @@
 - [Springboot-rabbitmq](https://github.com/lee-xs/springboot-learn/tree/master/springboot-rabbitmq) Springboot整合RabbitMQ,实现消息收发
 
 - [Springboot-thymeleaf](https://github.com/lee-xs/springboot-learn/tree/master/springboot-thymeleaf) Springboot整合Thymeleaf,基本操作
+
+- [Springboot-jwt](https://github.com/lee-xs/springboot-learn/tree/master/springboot-jwt) Springboot整合jwt,token验证
