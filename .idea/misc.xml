@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/springboot-redis/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-spring security/pom.xml" />
         <option value="$PROJECT_DIR$/learn-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-elasticsearch-lk/pom.xml" />
       </list>
     </option>
   </component>

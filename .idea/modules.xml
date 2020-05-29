@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/learn-demo/learn-demo.iml" filepath="$PROJECT_DIR$/learn-demo/learn-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-elasticsearch-lk/springboot-elasticsearch-lk.iml" filepath="$PROJECT_DIR$/springboot-elasticsearch-lk/springboot-elasticsearch-lk.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-jwt/springboot-jwt.iml" filepath="$PROJECT_DIR$/springboot-jwt/springboot-jwt.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-qiniu/springboot-qiniu.iml" filepath="$PROJECT_DIR$/springboot-qiniu/springboot-qiniu.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-rabbitmq/springboot-rabbitmq.iml" filepath="$PROJECT_DIR$/springboot-rabbitmq/springboot-rabbitmq.iml" />

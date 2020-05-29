@@ -1,0 +1,12 @@
+server:
+  port: 2922
+
+spring:
+  application:
+    name: elasticsearch
+  data:
+    elasticsearch:
+      #集群名称
+      cluster-name: elasticsearch
+      #集群节点地址列表，多个节点用英文逗号（,）分隔
+      cluster-nodes: 127.0.0.1:9300
